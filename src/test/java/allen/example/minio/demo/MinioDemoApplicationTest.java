@@ -136,57 +136,57 @@ class MinioDemoApplicationTest {
 //
 //    }
 
-    @Test
-    void testMultipleUpload() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        MinioClient minioClient =
-                MinioClient.builder()
-                        .endpoint("http://127.0.0.1:9000")
-                        .credentials("admin", "password")
-                        .build();
-
-
-        String bucketName = "test";
-        // Create new post policy for 'my-bucketname' with 7 days expiry from now.
-        PostPolicy policy = new PostPolicy(bucketName, ZonedDateTime.now().plusDays(7));
-
-        // Add condition that 'key' (object name) equals to 'my-objectname'.
-        policy.addEqualsCondition("key", "my-objectname");
-
-        // Add condition that 'Content-Type' starts with 'image/'.
-        policy.addStartsWithCondition("Content-Type", "image/");
-
-        // Add condition that 'content-length-range' is between 64kiB to 10MiB.
-        policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
-
-        Map<String, String> formData = minioClient.getPresignedPostFormData(policy);
-        System.out.println(formData);
-
-//        // Upload an image using POST object with form-data.
-//        MultipartBody. Builder multipartBuilder = new MultipartBody. Builder();
-//        multipartBuilder. setType(MultipartBody. FORM);
-//        for (Map. Entry<String, String> entry : formData. entrySet()) {
-//            multipartBuilder. addFormDataPart(entry. getKey(), entry. getValue());
-//        }
-//        multipartBuilder. addFormDataPart("key", "my-objectname");
-//        multipartBuilder. addFormDataPart("Content-Type", "image/ png");
-//
-//        // "file" must be added at last.
-//        multipartBuilder. addFormDataPart(
-//                "file", "my-objectname", RequestBody. create(new File("Pictures/ avatar. png"), null));
-//
-//        Request request =
-//                new Request. Builder()
-//                        .url("https:// play. min. io/ my-bucketname")
-//                        .post(multipartBuilder. build())
+//    @Test
+//    void testMultipleUpload() throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+//        MinioClient minioClient =
+//                MinioClient.builder()
+//                        .endpoint("http://127.0.0.1:9000")
+//                        .credentials("admin", "password")
 //                        .build();
-//        OkHttpClient httpClient = new OkHttpClient().newBuilder().build();
-//        Response response = httpClient. newCall(request).execute();
-//        if (response. isSuccessful()) {
-//            System. out. println("Pictures/ avatar. png is uploaded successfully using POST object");
-//        } else {
-//            System. out. println("Failed to upload Pictures/ avatar. png");
-//        }
-    }
+//
+//
+//        String bucketName = "test";
+//        // Create new post policy for 'my-bucketname' with 7 days expiry from now.
+//        PostPolicy policy = new PostPolicy(bucketName, ZonedDateTime.now().plusDays(7));
+//
+//        // Add condition that 'key' (object name) equals to 'my-objectname'.
+//        policy.addEqualsCondition("key", "my-objectname");
+//
+//        // Add condition that 'Content-Type' starts with 'image/'.
+//        policy.addStartsWithCondition("Content-Type", "image/");
+//
+//        // Add condition that 'content-length-range' is between 64kiB to 10MiB.
+//        policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
+//
+//        Map<String, String> formData = minioClient.getPresignedPostFormData(policy);
+//        System.out.println(formData);
+//
+////        // Upload an image using POST object with form-data.
+////        MultipartBody. Builder multipartBuilder = new MultipartBody. Builder();
+////        multipartBuilder. setType(MultipartBody. FORM);
+////        for (Map. Entry<String, String> entry : formData. entrySet()) {
+////            multipartBuilder. addFormDataPart(entry. getKey(), entry. getValue());
+////        }
+////        multipartBuilder. addFormDataPart("key", "my-objectname");
+////        multipartBuilder. addFormDataPart("Content-Type", "image/ png");
+////
+////        // "file" must be added at last.
+////        multipartBuilder. addFormDataPart(
+////                "file", "my-objectname", RequestBody. create(new File("Pictures/ avatar. png"), null));
+////
+////        Request request =
+////                new Request. Builder()
+////                        .url("https:// play. min. io/ my-bucketname")
+////                        .post(multipartBuilder. build())
+////                        .build();
+////        OkHttpClient httpClient = new OkHttpClient().newBuilder().build();
+////        Response response = httpClient. newCall(request).execute();
+////        if (response. isSuccessful()) {
+////            System. out. println("Pictures/ avatar. png is uploaded successfully using POST object");
+////        } else {
+////            System. out. println("Failed to upload Pictures/ avatar. png");
+////        }
+//    }
 
     /**
      * split a file in local. Like that:
